@@ -152,11 +152,43 @@ namespace Console1
 						}
 						else if (level == 1)
 						{
+                            Console.WriteLine("Folders:  home   user");
+                            Console.WriteLine("Files: ");
+                            Console.WriteLine();
+                            Console.Write("Files> ");
+                            string fileinput = Console.ReadLine();
+                            if (fileinput == "cd user")
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine("Folders: ");
+                                Console.WriteLine("Files: levelpassword.txt");
+                                Console.WriteLine();
+                                Console.Write("Files> ");
+                                string fileinput2 = Console.ReadLine();
+                                if (fileinput2 == "levelpassword.txt")
+                                {
 
+                                    Console.WriteLine("levelpassword.txt");
+                                    Console.WriteLine();
+                                    Console.WriteLine();
+                                    Console.WriteLine("AES");
+                                    Console.WriteLine("The key is the filename itself");
+                                    Console.WriteLine("LZm5N8NCe6Esi0YLkvaKNQ==");
+                                    Console.WriteLine("Good luck.");
+                                    Console.WriteLine();
+
+                                }
+                            }
 						}
 
 						Console.WriteLine();
 						break;
+
+                    case "test":
+                        Console.WriteLine("");
+                        Console.WriteLine("This works, doesnt it?");
+                        Console.WriteLine("");
+                        break;
 
 					case "logout":
 						Console.WriteLine();
