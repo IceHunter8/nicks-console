@@ -8,12 +8,18 @@ namespace Console1
 		{
 			string command;
 			var isLoggedIn = false;
-			var correctPassword = "pass";
+			var correctPassword = "7427466391";
+            string password1 = "";
 			int level = 0;
 			var username = "user";
 			var level2password = "90193076543";
 			var level3password = "16218187897";
+            int passwordtries = 3;
+            int passwordTries = 0;
+            bool outoftries = false;
 			bool quitNow = false;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.BackgroundColor = ConsoleColor.Black;
 
 			Console.WriteLine(Figgle.FiggleFonts.Ogre.Render("Nick's Console"));
 
@@ -25,10 +31,11 @@ namespace Console1
 				{
 					case "help":
 						if (level < 1)
-						{
+						{ 
 							Console.WriteLine();
 							Console.WriteLine("exit - exits the console");
 							Console.WriteLine("help - display this list");
+                            Console.WriteLine("hint - a hint towards the next password");
 							Console.WriteLine("level - shows what level you are currently at");
 							Console.WriteLine("login - login into the mainframe");
 							Console.WriteLine();
@@ -38,7 +45,8 @@ namespace Console1
 							Console.WriteLine();
 							Console.WriteLine("exit - exits the console");
 							Console.WriteLine("help - display this list");
-							Console.WriteLine("level  - shows what level you are currently at");
+                            Console.WriteLine("hint - a hint towards the next password");
+                            Console.WriteLine("level  - shows what level you are currently at");
 							Console.WriteLine("levelup - allows you to attempt to level up, password required");
 							Console.WriteLine("logout - logs out of mainframe");
 							Console.WriteLine();
@@ -118,18 +126,36 @@ namespace Console1
 							string userEntry = Console.ReadLine();
 							if (userEntry == username)
 							{
-								Console.Write("Please enter your password: ");
-								string password1 = ReadPassword();
+                                while(password1 != correctPassword && !outoftries)
+                                {
+                                    if (passwordtries > 0)
+                                    {
+                                        Console.Write("Please enter your password: ");
+                                        password1 = ReadPassword();
+                                        passwordtries--;
+                                        passwordTries++;
+                                        Console.WriteLine();
+                                        Console.WriteLine("Incorrect Password. You have " + passwordtries + " password guesses left");
+                                        Console.WriteLine();
+                                    }
+                                    else
+                                    {
+                                        outoftries = true;
+                                    }
+                                }
 
-								if (password1 == correctPassword)
+								if (outoftries)
 								{
-									isLoggedIn = true;
-									level = 1;
-									Console.WriteLine("Correct Password. Your level is now " + level + ".");
-								}
-								else
+                                    outoftries = false;
+                                    passwordtries = 3;
+                                    Console.WriteLine("You have entered the password incorrectly " + passwordTries + " times. Wait 10 seconds before trying again.");
+                                    System.Threading.Thread.Sleep(10000);
+                                }
+                                else
 								{
-									Console.WriteLine("Incorrect Password.");
+                                    isLoggedIn = true;
+                                    level = 1;
+                                    Console.WriteLine("Correct Password, you have logged in. Your level is now " + level + ".");
 								}
 							}
 							else
@@ -139,7 +165,7 @@ namespace Console1
 
 						}
 						Console.WriteLine();
-
+                        
 						break;
 
 
@@ -183,6 +209,17 @@ namespace Console1
 
 						Console.WriteLine();
 						break;
+
+                    case "hint":
+                        Console.WriteLine();
+
+                        if (level == 0)
+                        {
+                            Console.WriteLine("Try the first 10 digit prime found in consecutive digits of e. Good luck.");
+                        }
+                        
+                        Console.WriteLine();
+                        break;
 
                     case "test":
                         Console.WriteLine("");
